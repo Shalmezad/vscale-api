@@ -5,6 +5,8 @@ describe Vscale::Domains do
     @api = Vscale::Api::Client.new("FAKE_TOKEN")
     @api.stub :get
     @api.stub :post
+    @api.stub :patch
+    @api.stub :delete
   end
 
   describe "#domains" do
@@ -27,6 +29,23 @@ describe Vscale::Domains do
       domain_id = 90210
       @api.should_receive(:get).with("domains/90210")
       @api.domain_id domain_id
+    end
+  end
+
+  describe "#update_domain" do
+    it "calls #patch with the correct url and params" do
+      domain_id = 90210
+      params = {:hello => :world}
+      @api.should_receive(:patch).with("domains/90210", params)
+      @api.update_domain domain_id, params
+    end
+  end
+
+  describe "#remove_domain" do
+    it "calls #delete with the correct url" do
+      domain_id = 90210
+      @api.should_receive(:delete).with("domains/90210")
+      @api.remove_domain domain_id
     end
   end
   
