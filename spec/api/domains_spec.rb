@@ -48,5 +48,26 @@ describe Vscale::Domains do
       @api.remove_domain domain_id
     end
   end
+
+  describe "Domain Records" do
+
+    describe "#domain_records" do
+      it "calls #get with the correct url" do
+        domain_id = 90210
+        @api.should_receive(:get).with("domains/90210/records/")
+        @api.domain_records domain_id
+      end
+    end
+
+    describe "#add_domain_record" do
+      it "calls #post with the correct url and params" do
+        domain_id = 90210
+        params = {:hello => :world}
+        @api.should_receive(:post).with("domains/90210/records/", params)
+        @api.add_domain_record domain_id, params
+      end
+    end
+
+  end
   
 end
