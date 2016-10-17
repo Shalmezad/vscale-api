@@ -142,4 +142,48 @@ describe Vscale::Domains do
 
   end #describe "Domain Tags" do
 
+  describe "PTR Records" do
+
+    describe "#add_domains_ptr" do
+      it "calls #post with the correct url and params" do
+        params = {:hello => :world}
+        @api.should_receive(:post).with("domains/ptr/", params)
+        @api.add_domains_ptr(params)
+      end
+    end
+
+    describe "#domains_ptr" do
+      it "calls #get with the correct url" do
+        @api.should_receive(:get).with("domains/ptr/")
+        @api.domains_ptr
+      end
+    end
+
+    describe "#domains_ptr_id" do
+      it "calls #get with the correct url" do
+        ptr_id = 90210
+        @api.should_receive(:get).with("domains/ptr/90210")
+        @api.domains_ptr_id(ptr_id)
+      end
+    end
+
+    describe "#update_ptr_id" do
+      it "calls #put with the correct url and params" do
+        ptr_id = 90210
+        params = {:hello => :world}
+        @api.should_receive(:put).with("domains/ptr/90210", params)
+        @api.update_ptr_id(ptr_id,params)
+      end
+    end
+
+    describe "#remove_ptr_id" do
+      it "calls #delete with the correct url" do
+        ptr_id = 90210
+        @api.should_receive(:delete).with("domains/ptr/90210")
+        @api.remove_ptr_id(ptr_id)
+      end
+    end
+
+  end #describe "PTR Records" do
+
 end
